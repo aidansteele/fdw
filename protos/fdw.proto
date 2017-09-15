@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package PostgresFdw;
+
+service PostgresFdw {
+//    rpc GetForeignRelSize(GetForeignRelSizeInput) returns (GetForeignRelSizeOutput) {}
+//    rpc GetForeignPaths(GetForeignPathsInput) returns (GetForeignPathsOutput) {}
+//    rpc GetForeignPlan(GetForeignPlanInput) returns (GetForeignPlanOutput) {}
+    rpc PerformForeignScan(PerformForeignScanInput) returns (stream PerformForeignScanOutput) {}
+}
+
+//message GetForeignRelSizeInput {}
+//message GetForeignRelSizeOutput {
+//    int32 rows = 1;
+//    int32 width = 2;
+//}
+//
+//message GetForeignPathsInput {}
+//message GetForeignPathsOutput {
+//    int32 rows = 1;
+//    int32 startupCost = 2;
+//    int32 totalCost = 3;
+//}
+//
+//message GetForeignPlanInput {}
+//message GetForeignPlanOutput {}
+
+message ColumnDefinition {
+    string name = 1;
+    int32 oid = 2; // the internal OID of the PostgreSQL type
+    int32 mod = 3; // the type modifier (ex: VARCHAR(12))
+    string typeName = 4; // the formatted type name, with the modifier (ex: VARCHAR(12))
+    string baseTypeName = 5; // the base type name, withou modifier (ex: VARCHAR)
+    map<string, string> options = 6;
+}
+
+message PerformForeignScanInput {
+    repeated ColumnDefinition columns = 1;
+    map<string, string> options = 2;
+}
+
+message Row {
+    message RowValue {
+        oneof test_oneof {
+            string stringValue = 1;
+            float floatValue = 2;
+            double doubleValue = 3;
+            int32 intValue = 4;
+            int64 longValue = 5;
+            bool boolValue = 6;
+        }
+    }
+
+    map<string, RowValue> fields = 1;
+}
+
+message PerformForeignScanOutput {
+    repeated Row rows = 1;
+}
+
+// message BeginForeignScanInput {}
+// message BeginForeignScanOutput {
+//     bytes scanContext = 1;
+// }
+
+// message IterateForeignScanInput {
+//     message Column {
+//         string name = 1;
+//     }
+
+//     bytes scanContext = 1;
+//     repeated Column columns = 2;
+// }
+// message IterateForeignScanOutput {
+//     bytes scanContext = 1;    
+//     map<string, string> row = 2;
+// }
+
+// message ReScanForeignScanInput {
+//     bytes scanContext = 1;    
+// }
+// message ReScanForeignScanOutput {
+//     bytes scanContext = 1;    
+// }
+
+// message EndForeignScanInput {
+//     bytes scanContext = 1;    
+// }
+// message EndForeignScanOutput {
+// }

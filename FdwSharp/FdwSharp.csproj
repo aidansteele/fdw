@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.4.0" />
+    <PackageReference Include="Grpc" Version="1.6.0" />
+    <PackageReference Include="Grpc.Tools" Version="1.6.0" />
+    <PackageReference Include="System.Reactive" Version="3.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\protos\fdw.proto">
+      <Link>fdw.proto</Link>
+    </Content>
+  </ItemGroup>
+</Project>
