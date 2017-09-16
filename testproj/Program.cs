@@ -56,8 +56,7 @@ namespace testproj
         
         static void Main(string[] args)
         {
-            var context = new ContextualTable();
-            var server = new FdwSharpServer(context, new FdwSharpServer.Options());
+            var server = new FdwSharpServer(TestContext.GetTable(), new FdwSharpServer.Options());
             server.Start();
             
             var connString = "Host=localhost;Username=postgres;Password=postgres;Database=postgres;Port=5433;Maximum Pool Size=90;Application Name=moo";
@@ -74,7 +73,12 @@ namespace testproj
                     "customerid", 99
                 );
 
-                using (context.WithTable(conn, table))
+                var dictionary = new Dictionary<string, ITable>
+                {
+                    {"Products", table},
+                    {"Purchases", table}
+                };
+                using (TestContext.PushTables(conn, dictionary))
                 {
                     var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
                     cmd.Parameters.AddWithValue("custid", 99);
@@ -86,45 +90,45 @@ namespace testproj
                     }
                 }
             });
-
-            var t2 = Task.Run(async () =>
-            {
-                var conn = new NpgsqlConnection(connString);
-                conn.Open();
-                
-                var table = new LambdaTable((columns, options) =>
-                {
-                    return new List<IDictionary<string, object>>
-                    {
-                        new Dictionary<string, object>
-                        {
-                            {"productid", 1},
-                            {"productname", "some other product"},
-                            {"purchaseid", 2},
-                            {"customerid", 99}
-                        },
-                    };
-                });
-//                var table = new TableSelector(new Dictionary<string, ITable>()
+//
+//            var t2 = Task.Run(async () =>
+//            {
+//                var conn = new NpgsqlConnection(connString);
+//                conn.Open();
+//                
+//                var table = new LambdaTable((columns, options) =>
 //                {
-//                    { "Products", new ProductsTable() },
-//                    { "Purchases", new PurchasesTable() },
+//                    return new List<IDictionary<string, object>>
+//                    {
+//                        new Dictionary<string, object>
+//                        {
+//                            {"productid", 1},
+//                            {"productname", "some other product"},
+//                            {"purchaseid", 2},
+//                            {"customerid", 99}
+//                        },
+//                    };
 //                });
-            
-                using (context.WithTable(conn, table))
-                {
-                    var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
-                    cmd.Parameters.AddWithValue("custid", 99);
-                    
-                    using (var reader = await cmd.ExecuteReaderAsync())
-                    {
-                        var rows = await ReaderToDictionaries(reader);
-                        Console.WriteLine(JsonConvert.SerializeObject(rows));
-                    }
-                }
-            });
+////                var table = new TableSelector(new Dictionary<string, ITable>()
+////                {
+////                    { "Products", new ProductsTable() },
+////                    { "Purchases", new PurchasesTable() },
+////                });
+//            
+//                using (context.WithTable(conn, table))
+//                {
+//                    var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
+//                    cmd.Parameters.AddWithValue("custid", 99);
+//                    
+//                    using (var reader = await cmd.ExecuteReaderAsync())
+//                    {
+//                        var rows = await ReaderToDictionaries(reader);
+//                        Console.WriteLine(JsonConvert.SerializeObject(rows));
+//                    }
+//                }
+//            });
 
-            Task.WaitAll(t1, t2);
+            Task.WaitAll(t1);
             server.Shutdown().Wait();
         }
     }
