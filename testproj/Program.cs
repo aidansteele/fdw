@@ -73,20 +73,21 @@ namespace testproj
                     "customerid", 99
                 );
 
-                var dictionary = new Dictionary<string, ITable>{{"Products", productsTable}};
-                using (TestContext.PushTables(conn, dictionary))
+                using (TestContext.PushTables(new Dictionary<string, ITable>{{"Products", productsTable}}))
                 {
-                    var dictionary2 = new Dictionary<string, ITable>{{"Purchases", productsTable}};
-                    using (TestContext.PushTables(conn, dictionary2))
+                    using (TestContext.PushTables(new Dictionary<string, ITable>{{"Purchases", productsTable}}))
                     {
-                        var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
-                        cmd.Parameters.AddWithValue("custid", 99);
-                    
-                        using (var reader = await cmd.ExecuteReaderAsync())
+                        using (TestContext.WrapConnection(conn))
                         {
-                            var rows = await ReaderToDictionaries(reader);
-                            Console.WriteLine(JsonConvert.SerializeObject(rows));
-                        }                        
+                            var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
+                            cmd.Parameters.AddWithValue("custid", 99);
+                    
+                            using (var reader = await cmd.ExecuteReaderAsync())
+                            {
+                                var rows = await ReaderToDictionaries(reader);
+                                Console.WriteLine(JsonConvert.SerializeObject(rows));
+                            }                                  
+                        }
                     }
                 }
             });

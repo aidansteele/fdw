@@ -52,37 +52,32 @@ namespace FdwSharp
     
     public class TestContext
     {
-        private static ConcurrentDictionary<string, ExecutionContext> TableMap = new ConcurrentDictionary<string, ExecutionContext>();
-        private static readonly AsyncLocal<string> LocalNameStorage = new AsyncLocal<string>();
-
-        private static string LocalName
-        {
-            get => LocalNameStorage.Value;
-            set => LocalNameStorage.Value = value;
-        }
-        
+        private static readonly ConcurrentDictionary<string, ExecutionContext> ExecutionContextMap = new ConcurrentDictionary<string, ExecutionContext>();        
         private static DictionaryStack<string, ITable> Tables = new DictionaryStack<string, ITable>();
 
-        public static IDisposable PushTables(IDbConnection connection, IDictionary<string, ITable> tables)
+        public static IDisposable PushTables(IDictionary<string, ITable> tables)
+        {
+            return Tables.Push(tables);
+        }
+        
+        public static IDisposable WrapConnection(IDbConnection connection)
         {
             var rnd = new Random();
-            LocalName = rnd.Next(1, int.MaxValue).ToString();
-            var disposable = Tables.Push(tables);
-            TableMap[LocalName] = ExecutionContext.Capture();
+            var contextName = rnd.Next(1, int.MaxValue).ToString();
+            ExecutionContextMap[contextName] = ExecutionContext.Capture();
 
             using (var cmd = connection.CreateCommand())
             {
                 // appears SET isn't parameterisable
-                cmd.CommandText = $"SET application_name TO {LocalName}";
+                cmd.CommandText = $"SET application_name TO {contextName}";
                 cmd.ExecuteNonQuery();
             }
 
-            return new CompositeDisposable(disposable, Disposable.Create(() =>
+            return Disposable.Create(() =>
             {
                 ExecutionContext unused;
-                TableMap.TryRemove(LocalName, out unused);
-                LocalName = null;
-            }));
+                ExecutionContextMap.TryRemove(contextName, out unused);
+            });
         }
 
         public static ITable GetTable()
@@ -94,10 +89,12 @@ namespace FdwSharp
         {
             public IEnumerable<IDictionary<string, object>> ScanTable(IReadOnlyList<Column> columns, IReadOnlyDictionary<string, string> options)
             {
+                ITable table = null;
+
                 var appName = options["grpc_fdw.application_name"];
                 var tableName = options["fdwsharp.table"];
-                ITable table = null;
-                ExecutionContext.Run(TableMap[appName], state => table = Tables.Get(tableName), null);
+                var context = ExecutionContextMap[appName];
+                ExecutionContext.Run(context, state => table = Tables.Get(tableName), null);
                 return table.ScanTable(columns, options);
             }   
         }
