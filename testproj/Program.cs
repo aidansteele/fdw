@@ -66,27 +66,27 @@ namespace testproj
                 var conn = new NpgsqlConnection(connString);
                 conn.Open();
                 
-                var table = new SingleRowTable(
+                var productsTable = new SingleRowTable(
                     "productid", 1, 
                     "productname", "product A", 
                     "purchaseid", 2, 
                     "customerid", 99
                 );
 
-                var dictionary = new Dictionary<string, ITable>
-                {
-                    {"Products", table},
-                    {"Purchases", table}
-                };
+                var dictionary = new Dictionary<string, ITable>{{"Products", productsTable}};
                 using (TestContext.PushTables(conn, dictionary))
                 {
-                    var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
-                    cmd.Parameters.AddWithValue("custid", 99);
-                    
-                    using (var reader = await cmd.ExecuteReaderAsync())
+                    var dictionary2 = new Dictionary<string, ITable>{{"Purchases", productsTable}};
+                    using (TestContext.PushTables(conn, dictionary2))
                     {
-                        var rows = await ReaderToDictionaries(reader);
-                        Console.WriteLine(JsonConvert.SerializeObject(rows));
+                        var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
+                        cmd.Parameters.AddWithValue("custid", 99);
+                    
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            var rows = await ReaderToDictionaries(reader);
+                            Console.WriteLine(JsonConvert.SerializeObject(rows));
+                        }                        
                     }
                 }
             });

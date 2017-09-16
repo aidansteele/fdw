@@ -52,7 +52,7 @@ namespace FdwSharp
     
     public class TestContext
     {
-        private static ConcurrentDictionary<string, Func<string, ITable>> TableMap = new ConcurrentDictionary<string, Func<string, ITable>>();
+        private static ConcurrentDictionary<string, ExecutionContext> TableMap = new ConcurrentDictionary<string, ExecutionContext>();
         private static readonly AsyncLocal<string> LocalNameStorage = new AsyncLocal<string>();
 
         private static string LocalName
@@ -68,10 +68,7 @@ namespace FdwSharp
             var rnd = new Random();
             LocalName = rnd.Next(1, int.MaxValue).ToString();
             var disposable = Tables.Push(tables);
-            TableMap[LocalName] = name =>
-            {
-                return Tables.Get(name);
-            };
+            TableMap[LocalName] = ExecutionContext.Capture();
 
             using (var cmd = connection.CreateCommand())
             {
@@ -82,7 +79,7 @@ namespace FdwSharp
 
             return new CompositeDisposable(disposable, Disposable.Create(() =>
             {
-                Func<string, ITable> unused;
+                ExecutionContext unused;
                 TableMap.TryRemove(LocalName, out unused);
                 LocalName = null;
             }));
@@ -99,8 +96,8 @@ namespace FdwSharp
             {
                 var appName = options["grpc_fdw.application_name"];
                 var tableName = options["fdwsharp.table"];
-//                var table = Tables.Get(appName);
-                var table = TableMap[appName](tableName);
+                ITable table = null;
+                ExecutionContext.Run(TableMap[appName], state => table = Tables.Get(tableName), null);
                 return table.ScanTable(columns, options);
             }   
         }
