@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Data;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -9,47 +8,6 @@ using System.Threading;
 
 namespace FdwSharp
 {
-    class DictionaryStack<TKey, TValue>
-    {
-        private readonly AsyncLocal<ImmutableStack<IDictionary<TKey, TValue>>> _stackStorage = new AsyncLocal<ImmutableStack<IDictionary<TKey, TValue>>>();
-        private ImmutableStack<IDictionary<TKey, TValue>> Stack
-        {
-            get => _stackStorage.Value;
-            set => _stackStorage.Value = value;
-        }
-        
-        internal ImmutableStack<IDictionary<TKey, TValue>> GetOrCreateStack()
-        {
-            var stack = Stack;
-            if (stack != null) return stack;
-            
-            stack = ImmutableStack<IDictionary<TKey, TValue>>.Empty;
-            Stack = stack;
-            return stack;
-        }
-
-        public TValue Get(TKey key)
-        {
-            foreach (var dict in GetOrCreateStack())
-            {
-                if (dict.ContainsKey(key)) return dict[key];
-            }
-
-            return default(TValue);
-        }
-
-        public IDisposable Push(IDictionary<TKey, TValue> dict)
-        {
-            var oldStack = GetOrCreateStack();
-            Stack = Stack.Push(dict);
-            
-            return Disposable.Create(() =>
-            {
-                Stack = oldStack;
-            });
-        }
-    }
-    
     public class TestContext
     {
         private static readonly ConcurrentDictionary<string, ExecutionContext> ExecutionContextMap = new ConcurrentDictionary<string, ExecutionContext>();        
@@ -88,10 +46,10 @@ namespace FdwSharp
 
         public static ITable GetTable()
         {
-            return new Table();
+            return new ContextualTable();
         }
 
-        private class Table : ITable
+        private class ContextualTable : ITable
         {
             public IEnumerable<IDictionary<string, object>> ScanTable(IReadOnlyList<Column> columns, IReadOnlyDictionary<string, string> options)
             {
