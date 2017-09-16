@@ -61,75 +61,51 @@ namespace testproj
             
             var connString = "Host=localhost;Username=postgres;Password=postgres;Database=postgres;Port=5433;Maximum Pool Size=90;Application Name=moo";
             
-            var t1 = Task.Run(async () =>
+            var productsTable1 = new SingleRowTable(
+                "productid", 1, 
+                "productname", "product A"
+            );
+            
+            var productsTable2 = new SingleRowTable(
+                "productid", 1, 
+                "productname", "product B"
+            );
+
+            var dothings = new Func<Task>(async () =>
             {
                 var conn = new NpgsqlConnection(connString);
                 conn.Open();
-                
-                var productsTable = new SingleRowTable(
-                    "productid", 1, 
-                    "productname", "product A", 
-                    "purchaseid", 2, 
-                    "customerid", 99
-                );
 
-                using (TestContext.PushTables(new Dictionary<string, ITable>{{"Products", productsTable}}))
+                using (TestContext.WrapConnection(conn))
                 {
-                    using (TestContext.PushTables(new Dictionary<string, ITable>{{"Purchases", productsTable}}))
-                    {
-                        using (TestContext.WrapConnection(conn))
-                        {
-                            var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
-                            cmd.Parameters.AddWithValue("custid", 99);
+                    var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
+                    cmd.Parameters.AddWithValue("custid", 99);
                     
-                            using (var reader = await cmd.ExecuteReaderAsync())
-                            {
-                                var rows = await ReaderToDictionaries(reader);
-                                Console.WriteLine(JsonConvert.SerializeObject(rows));
-                            }                                  
-                        }
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        var rows = await ReaderToDictionaries(reader);
+                        Console.WriteLine(JsonConvert.SerializeObject(rows));
                     }
-                }
+                } 
             });
-//
-//            var t2 = Task.Run(async () =>
-//            {
-//                var conn = new NpgsqlConnection(connString);
-//                conn.Open();
-//                
-//                var table = new LambdaTable((columns, options) =>
-//                {
-//                    return new List<IDictionary<string, object>>
-//                    {
-//                        new Dictionary<string, object>
-//                        {
-//                            {"productid", 1},
-//                            {"productname", "some other product"},
-//                            {"purchaseid", 2},
-//                            {"customerid", 99}
-//                        },
-//                    };
-//                });
-////                var table = new TableSelector(new Dictionary<string, ITable>()
-////                {
-////                    { "Products", new ProductsTable() },
-////                    { "Purchases", new PurchasesTable() },
-////                });
-//            
-//                using (context.WithTable(conn, table))
-//                {
-//                    var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
-//                    cmd.Parameters.AddWithValue("custid", 99);
-//                    
-//                    using (var reader = await cmd.ExecuteReaderAsync())
-//                    {
-//                        var rows = await ReaderToDictionaries(reader);
-//                        Console.WriteLine(JsonConvert.SerializeObject(rows));
-//                    }
-//                }
-//            });
+            
+            using (TestContext.PushTables(new Dictionary<string, ITable>{{"Purchases", new PurchasesTable()}}))
+            {
+                Task t1, t2;
+                
+                using (TestContext.PushTable("Products", productsTable1))
+                {
+                    t1 = Task.Run(dothings);                    
+                }
 
-            Task.WaitAll(t1);
+                using (TestContext.PushTable("Products", productsTable2))
+                {
+                    t2 = Task.Run(dothings);    
+                }
+                
+                Task.WaitAll(t1, t2);
+            }
+
             server.Shutdown().Wait();
         }
     }

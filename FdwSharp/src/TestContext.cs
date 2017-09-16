@@ -60,6 +60,12 @@ namespace FdwSharp
             return Tables.Push(tables);
         }
         
+        public static IDisposable PushTable(string name, ITable table)
+        {
+            var dict = new Dictionary<string, ITable> {{name, table}};
+            return Tables.Push(dict);
+        }
+        
         public static IDisposable WrapConnection(IDbConnection connection)
         {
             var rnd = new Random();
