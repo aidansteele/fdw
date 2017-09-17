@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using FdwSharp;
 using Newtonsoft.Json;
 using Npgsql;
+using PostgresFdw;
+using TableDefinition = FdwSharp.TableDefinition;
 
 namespace testproj
 {
@@ -56,9 +58,17 @@ namespace testproj
         
         static void Main(string[] args)
         {
-            var server = new FdwSharpServer(TestContext.GetTable(), new FdwSharpServer.Options());
-            server.Start();
+            var ctx = new FdwTestContext();
+            var _server = new FdwSharpServer(new FdwSharpServer.Options
+            {
+                TableImporter = new Importer(),
+                Table = ctx.GetTable()
+            });
+            _server.Start();
+            Console.ReadKey();
             
+//            var fix = new FdwTestFixture();
+//            
             var connString = "Host=localhost;Username=postgres;Password=postgres;Database=postgres;Port=5433;Maximum Pool Size=90;Application Name=moo";
             
             var productsTable1 = new SingleRowTable(
@@ -76,7 +86,7 @@ namespace testproj
                 var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
-                using (TestContext.WrapConnection(conn))
+                using (ctx.WrapConnection(conn))
                 {
                     var cmd = new NpgsqlCommand("SELECT purchases.*, productname FROM purchases JOIN products ON purchases.productid = products.productid WHERE purchases.customerid = @custid;", conn);
                     cmd.Parameters.AddWithValue("custid", 99);
@@ -89,24 +99,53 @@ namespace testproj
                 } 
             });
             
-            using (TestContext.PushTables(new Dictionary<string, ITable>{{"Purchases", new PurchasesTable()}}))
+            using (ctx.PushTables(new Dictionary<string, ITable>{{"purchases", new PurchasesTable()}}))
             {
                 Task t1, t2;
                 
-                using (TestContext.PushTable("Products", productsTable1))
+                using (ctx.PushTable("products", productsTable1))
                 {
                     t1 = Task.Run(dothings);                    
                 }
 
-                using (TestContext.PushTable("Products", productsTable2))
+                using (ctx.PushTable("products", productsTable2))
                 {
                     t2 = Task.Run(dothings);    
                 }
                 
                 Task.WaitAll(t1, t2);
             }
+        }
+    }
 
-            server.Shutdown().Wait();
+    internal class Importer : ITableImporter
+    {
+        public Task<IEnumerable<TableDefinition>> ImportTables(string schema, IDictionary<string, string> serverOptions, IDictionary<string, string> importOptions,
+            TableImportRestriction importRestriction, ICollection<string> restrictedTables)
+        {
+            var products = new TableDefinition(
+                "products", 
+                new List<ColumnDefinition>
+                {
+                    new ColumnDefinition { Name = "productid", TypeName = "int" },
+                    new ColumnDefinition { Name = "productname", TypeName = "text" },
+                }, 
+                new Dictionary<string, string>()
+            );
+
+            var purchases = new TableDefinition(
+                "purchases",
+                new List<ColumnDefinition>
+                {
+                    new ColumnDefinition {Name = "productid", TypeName = "int"},
+                    new ColumnDefinition {Name = "purchaseid", TypeName = "int"},
+                    new ColumnDefinition {Name = "customerid", TypeName = "int"},
+                },
+                new Dictionary<string, string>()
+            );
+
+            IEnumerable<TableDefinition> tables = new List<TableDefinition> {products, purchases};
+            return Task.FromResult(tables);
         }
     }
 }

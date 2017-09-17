@@ -3,27 +3,9 @@ syntax = "proto3";
 package PostgresFdw;
 
 service PostgresFdw {
-//    rpc GetForeignRelSize(GetForeignRelSizeInput) returns (GetForeignRelSizeOutput) {}
-//    rpc GetForeignPaths(GetForeignPathsInput) returns (GetForeignPathsOutput) {}
-//    rpc GetForeignPlan(GetForeignPlanInput) returns (GetForeignPlanOutput) {}
     rpc PerformForeignScan(PerformForeignScanInput) returns (stream PerformForeignScanOutput) {}
+    rpc ImportForeignSchema(ImportForeignSchemaInput) returns (ImportForeignSchemaOutput) {}
 }
-
-//message GetForeignRelSizeInput {}
-//message GetForeignRelSizeOutput {
-//    int32 rows = 1;
-//    int32 width = 2;
-//}
-//
-//message GetForeignPathsInput {}
-//message GetForeignPathsOutput {
-//    int32 rows = 1;
-//    int32 startupCost = 2;
-//    int32 totalCost = 3;
-//}
-//
-//message GetForeignPlanInput {}
-//message GetForeignPlanOutput {}
 
 message ColumnDefinition {
     string name = 1;
@@ -32,6 +14,31 @@ message ColumnDefinition {
     string typeName = 4; // the formatted type name, with the modifier (ex: VARCHAR(12))
     string baseTypeName = 5; // the base type name, withou modifier (ex: VARCHAR)
     map<string, string> options = 6;
+}
+
+message TableDefinition {
+    string name = 1;
+    repeated ColumnDefinition columns = 2;
+    map<string, string> options = 3;
+}
+
+message ImportForeignSchemaInput {
+    string schema = 1;
+    map<string, string> serverOptions = 2;
+    map<string, string> importOptions = 3;
+    
+    enum RestrictionType {
+        NONE = 0;
+        LIMIT = 1;
+        EXCEPT = 2;
+    }
+    
+    RestrictionType restrictionType = 4;
+    repeated string restricted = 5;
+}
+
+message ImportForeignSchemaOutput {
+    repeated TableDefinition tables = 1;
 }
 
 message PerformForeignScanInput {
@@ -58,33 +65,3 @@ message PerformForeignScanOutput {
     repeated Row rows = 1;
 }
 
-// message BeginForeignScanInput {}
-// message BeginForeignScanOutput {
-//     bytes scanContext = 1;
-// }
-
-// message IterateForeignScanInput {
-//     message Column {
-//         string name = 1;
-//     }
-
-//     bytes scanContext = 1;
-//     repeated Column columns = 2;
-// }
-// message IterateForeignScanOutput {
-//     bytes scanContext = 1;    
-//     map<string, string> row = 2;
-// }
-
-// message ReScanForeignScanInput {
-//     bytes scanContext = 1;    
-// }
-// message ReScanForeignScanOutput {
-//     bytes scanContext = 1;    
-// }
-
-// message EndForeignScanInput {
-//     bytes scanContext = 1;    
-// }
-// message EndForeignScanOutput {
-// }

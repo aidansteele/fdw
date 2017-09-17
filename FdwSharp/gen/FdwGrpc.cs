@@ -15,6 +15,8 @@ namespace PostgresFdw {
 
     static readonly grpc::Marshaller<global::PostgresFdw.PerformForeignScanInput> __Marshaller_PerformForeignScanInput = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::PostgresFdw.PerformForeignScanInput.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::PostgresFdw.PerformForeignScanOutput> __Marshaller_PerformForeignScanOutput = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::PostgresFdw.PerformForeignScanOutput.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::PostgresFdw.ImportForeignSchemaInput> __Marshaller_ImportForeignSchemaInput = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::PostgresFdw.ImportForeignSchemaInput.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::PostgresFdw.ImportForeignSchemaOutput> __Marshaller_ImportForeignSchemaOutput = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::PostgresFdw.ImportForeignSchemaOutput.Parser.ParseFrom);
 
     static readonly grpc::Method<global::PostgresFdw.PerformForeignScanInput, global::PostgresFdw.PerformForeignScanOutput> __Method_PerformForeignScan = new grpc::Method<global::PostgresFdw.PerformForeignScanInput, global::PostgresFdw.PerformForeignScanOutput>(
         grpc::MethodType.ServerStreaming,
@@ -22,6 +24,13 @@ namespace PostgresFdw {
         "PerformForeignScan",
         __Marshaller_PerformForeignScanInput,
         __Marshaller_PerformForeignScanOutput);
+
+    static readonly grpc::Method<global::PostgresFdw.ImportForeignSchemaInput, global::PostgresFdw.ImportForeignSchemaOutput> __Method_ImportForeignSchema = new grpc::Method<global::PostgresFdw.ImportForeignSchemaInput, global::PostgresFdw.ImportForeignSchemaOutput>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "ImportForeignSchema",
+        __Marshaller_ImportForeignSchemaInput,
+        __Marshaller_ImportForeignSchemaOutput);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -32,16 +41,12 @@ namespace PostgresFdw {
     /// <summary>Base class for server-side implementations of PostgresFdw</summary>
     public abstract partial class PostgresFdwBase
     {
-      /// <summary>
-      ///    rpc GetForeignRelSize(GetForeignRelSizeInput) returns (GetForeignRelSizeOutput) {}
-      ///    rpc GetForeignPaths(GetForeignPathsInput) returns (GetForeignPathsOutput) {}
-      ///    rpc GetForeignPlan(GetForeignPlanInput) returns (GetForeignPlanOutput) {}
-      /// </summary>
-      /// <param name="request">The request received from the client.</param>
-      /// <param name="responseStream">Used for sending responses back to the client.</param>
-      /// <param name="context">The context of the server-side call handler being invoked.</param>
-      /// <returns>A task indicating completion of the handler.</returns>
       public virtual global::System.Threading.Tasks.Task PerformForeignScan(global::PostgresFdw.PerformForeignScanInput request, grpc::IServerStreamWriter<global::PostgresFdw.PerformForeignScanOutput> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::PostgresFdw.ImportForeignSchemaOutput> ImportForeignSchema(global::PostgresFdw.ImportForeignSchemaInput request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -71,31 +76,29 @@ namespace PostgresFdw {
       {
       }
 
-      /// <summary>
-      ///    rpc GetForeignRelSize(GetForeignRelSizeInput) returns (GetForeignRelSizeOutput) {}
-      ///    rpc GetForeignPaths(GetForeignPathsInput) returns (GetForeignPathsOutput) {}
-      ///    rpc GetForeignPlan(GetForeignPlanInput) returns (GetForeignPlanOutput) {}
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
-      /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
-      /// <param name="cancellationToken">An optional token for canceling the call.</param>
-      /// <returns>The call object.</returns>
       public virtual grpc::AsyncServerStreamingCall<global::PostgresFdw.PerformForeignScanOutput> PerformForeignScan(global::PostgresFdw.PerformForeignScanInput request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return PerformForeignScan(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      /// <summary>
-      ///    rpc GetForeignRelSize(GetForeignRelSizeInput) returns (GetForeignRelSizeOutput) {}
-      ///    rpc GetForeignPaths(GetForeignPathsInput) returns (GetForeignPathsOutput) {}
-      ///    rpc GetForeignPlan(GetForeignPlanInput) returns (GetForeignPlanOutput) {}
-      /// </summary>
-      /// <param name="request">The request to send to the server.</param>
-      /// <param name="options">The options for the call.</param>
-      /// <returns>The call object.</returns>
       public virtual grpc::AsyncServerStreamingCall<global::PostgresFdw.PerformForeignScanOutput> PerformForeignScan(global::PostgresFdw.PerformForeignScanInput request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_PerformForeignScan, null, options, request);
+      }
+      public virtual global::PostgresFdw.ImportForeignSchemaOutput ImportForeignSchema(global::PostgresFdw.ImportForeignSchemaInput request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return ImportForeignSchema(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::PostgresFdw.ImportForeignSchemaOutput ImportForeignSchema(global::PostgresFdw.ImportForeignSchemaInput request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_ImportForeignSchema, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::PostgresFdw.ImportForeignSchemaOutput> ImportForeignSchemaAsync(global::PostgresFdw.ImportForeignSchemaInput request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return ImportForeignSchemaAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::PostgresFdw.ImportForeignSchemaOutput> ImportForeignSchemaAsync(global::PostgresFdw.ImportForeignSchemaInput request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_ImportForeignSchema, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override PostgresFdwClient NewInstance(ClientBaseConfiguration configuration)
@@ -109,7 +112,8 @@ namespace PostgresFdw {
     public static grpc::ServerServiceDefinition BindService(PostgresFdwBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_PerformForeignScan, serviceImpl.PerformForeignScan).Build();
+          .AddMethod(__Method_PerformForeignScan, serviceImpl.PerformForeignScan)
+          .AddMethod(__Method_ImportForeignSchema, serviceImpl.ImportForeignSchema).Build();
     }
 
   }

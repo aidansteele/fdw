@@ -19,10 +19,36 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='fdw.proto',
   package='PostgresFdw',
   syntax='proto3',
-  serialized_pb=_b('\n\tfdw.proto\x12\x0bPostgresFdw\"\xcf\x01\n\x10\x43olumnDefinition\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03oid\x18\x02 \x01(\x05\x12\x0b\n\x03mod\x18\x03 \x01(\x05\x12\x10\n\x08typeName\x18\x04 \x01(\t\x12\x14\n\x0c\x62\x61seTypeName\x18\x05 \x01(\t\x12;\n\x07options\x18\x06 \x03(\x0b\x32*.PostgresFdw.ColumnDefinition.OptionsEntry\x1a.\n\x0cOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xbd\x01\n\x17PerformForeignScanInput\x12.\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x1d.PostgresFdw.ColumnDefinition\x12\x42\n\x07options\x18\x02 \x03(\x0b\x32\x31.PostgresFdw.PerformForeignScanInput.OptionsEntry\x1a.\n\x0cOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x9a\x02\n\x03Row\x12,\n\x06\x66ields\x18\x01 \x03(\x0b\x32\x1c.PostgresFdw.Row.FieldsEntry\x1a\x9a\x01\n\x08RowValue\x12\x15\n\x0bstringValue\x18\x01 \x01(\tH\x00\x12\x14\n\nfloatValue\x18\x02 \x01(\x02H\x00\x12\x15\n\x0b\x64oubleValue\x18\x03 \x01(\x01H\x00\x12\x12\n\x08intValue\x18\x04 \x01(\x05H\x00\x12\x13\n\tlongValue\x18\x05 \x01(\x03H\x00\x12\x13\n\tboolValue\x18\x06 \x01(\x08H\x00\x42\x0c\n\ntest_oneof\x1aH\n\x0b\x46ieldsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.PostgresFdw.Row.RowValue:\x02\x38\x01\":\n\x18PerformForeignScanOutput\x12\x1e\n\x04rows\x18\x01 \x03(\x0b\x32\x10.PostgresFdw.Row2t\n\x0bPostgresFdw\x12\x65\n\x12PerformForeignScan\x12$.PostgresFdw.PerformForeignScanInput\x1a%.PostgresFdw.PerformForeignScanOutput\"\x00\x30\x01\x62\x06proto3')
+  serialized_pb=_b('\n\tfdw.proto\x12\x0bPostgresFdw\"\xcf\x01\n\x10\x43olumnDefinition\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0b\n\x03oid\x18\x02 \x01(\x05\x12\x0b\n\x03mod\x18\x03 \x01(\x05\x12\x10\n\x08typeName\x18\x04 \x01(\t\x12\x14\n\x0c\x62\x61seTypeName\x18\x05 \x01(\t\x12;\n\x07options\x18\x06 \x03(\x0b\x32*.PostgresFdw.ColumnDefinition.OptionsEntry\x1a.\n\x0cOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xbb\x01\n\x0fTableDefinition\x12\x0c\n\x04name\x18\x01 \x01(\t\x12.\n\x07\x63olumns\x18\x02 \x03(\x0b\x32\x1d.PostgresFdw.ColumnDefinition\x12:\n\x07options\x18\x03 \x03(\x0b\x32).PostgresFdw.TableDefinition.OptionsEntry\x1a.\n\x0cOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xd0\x03\n\x18ImportForeignSchemaInput\x12\x0e\n\x06schema\x18\x01 \x01(\t\x12O\n\rserverOptions\x18\x02 \x03(\x0b\x32\x38.PostgresFdw.ImportForeignSchemaInput.ServerOptionsEntry\x12O\n\rimportOptions\x18\x03 \x03(\x0b\x32\x38.PostgresFdw.ImportForeignSchemaInput.ImportOptionsEntry\x12N\n\x0frestrictionType\x18\x04 \x01(\x0e\x32\x35.PostgresFdw.ImportForeignSchemaInput.RestrictionType\x12\x12\n\nrestricted\x18\x05 \x03(\t\x1a\x34\n\x12ServerOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a\x34\n\x12ImportOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"2\n\x0fRestrictionType\x12\x08\n\x04NONE\x10\x00\x12\t\n\x05LIMIT\x10\x01\x12\n\n\x06\x45XCEPT\x10\x02\"I\n\x19ImportForeignSchemaOutput\x12,\n\x06tables\x18\x01 \x03(\x0b\x32\x1c.PostgresFdw.TableDefinition\"\xbd\x01\n\x17PerformForeignScanInput\x12.\n\x07\x63olumns\x18\x01 \x03(\x0b\x32\x1d.PostgresFdw.ColumnDefinition\x12\x42\n\x07options\x18\x02 \x03(\x0b\x32\x31.PostgresFdw.PerformForeignScanInput.OptionsEntry\x1a.\n\x0cOptionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x9a\x02\n\x03Row\x12,\n\x06\x66ields\x18\x01 \x03(\x0b\x32\x1c.PostgresFdw.Row.FieldsEntry\x1a\x9a\x01\n\x08RowValue\x12\x15\n\x0bstringValue\x18\x01 \x01(\tH\x00\x12\x14\n\nfloatValue\x18\x02 \x01(\x02H\x00\x12\x15\n\x0b\x64oubleValue\x18\x03 \x01(\x01H\x00\x12\x12\n\x08intValue\x18\x04 \x01(\x05H\x00\x12\x13\n\tlongValue\x18\x05 \x01(\x03H\x00\x12\x13\n\tboolValue\x18\x06 \x01(\x08H\x00\x42\x0c\n\ntest_oneof\x1aH\n\x0b\x46ieldsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12(\n\x05value\x18\x02 \x01(\x0b\x32\x19.PostgresFdw.Row.RowValue:\x02\x38\x01\":\n\x18PerformForeignScanOutput\x12\x1e\n\x04rows\x18\x01 \x03(\x0b\x32\x10.PostgresFdw.Row2\xdc\x01\n\x0bPostgresFdw\x12\x65\n\x12PerformForeignScan\x12$.PostgresFdw.PerformForeignScanInput\x1a%.PostgresFdw.PerformForeignScanOutput\"\x00\x30\x01\x12\x66\n\x13ImportForeignSchema\x12%.PostgresFdw.ImportForeignSchemaInput\x1a&.PostgresFdw.ImportForeignSchemaOutput\"\x00\x62\x06proto3')
 )
 
 
+
+_IMPORTFOREIGNSCHEMAINPUT_RESTRICTIONTYPE = _descriptor.EnumDescriptor(
+  name='RestrictionType',
+  full_name='PostgresFdw.ImportForeignSchemaInput.RestrictionType',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='NONE', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='LIMIT', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='EXCEPT', index=2, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=841,
+  serialized_end=891,
+)
+_sym_db.RegisterEnumDescriptor(_IMPORTFOREIGNSCHEMAINPUT_RESTRICTIONTYPE)
 
 
 _COLUMNDEFINITION_OPTIONSENTRY = _descriptor.Descriptor(
@@ -128,6 +154,253 @@ _COLUMNDEFINITION = _descriptor.Descriptor(
 )
 
 
+_TABLEDEFINITION_OPTIONSENTRY = _descriptor.Descriptor(
+  name='OptionsEntry',
+  full_name='PostgresFdw.TableDefinition.OptionsEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='PostgresFdw.TableDefinition.OptionsEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='PostgresFdw.TableDefinition.OptionsEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=188,
+  serialized_end=234,
+)
+
+_TABLEDEFINITION = _descriptor.Descriptor(
+  name='TableDefinition',
+  full_name='PostgresFdw.TableDefinition',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='PostgresFdw.TableDefinition.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='columns', full_name='PostgresFdw.TableDefinition.columns', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='options', full_name='PostgresFdw.TableDefinition.options', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_TABLEDEFINITION_OPTIONSENTRY, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=237,
+  serialized_end=424,
+)
+
+
+_IMPORTFOREIGNSCHEMAINPUT_SERVEROPTIONSENTRY = _descriptor.Descriptor(
+  name='ServerOptionsEntry',
+  full_name='PostgresFdw.ImportForeignSchemaInput.ServerOptionsEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='PostgresFdw.ImportForeignSchemaInput.ServerOptionsEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='PostgresFdw.ImportForeignSchemaInput.ServerOptionsEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=733,
+  serialized_end=785,
+)
+
+_IMPORTFOREIGNSCHEMAINPUT_IMPORTOPTIONSENTRY = _descriptor.Descriptor(
+  name='ImportOptionsEntry',
+  full_name='PostgresFdw.ImportForeignSchemaInput.ImportOptionsEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='PostgresFdw.ImportForeignSchemaInput.ImportOptionsEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='PostgresFdw.ImportForeignSchemaInput.ImportOptionsEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=787,
+  serialized_end=839,
+)
+
+_IMPORTFOREIGNSCHEMAINPUT = _descriptor.Descriptor(
+  name='ImportForeignSchemaInput',
+  full_name='PostgresFdw.ImportForeignSchemaInput',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='schema', full_name='PostgresFdw.ImportForeignSchemaInput.schema', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='serverOptions', full_name='PostgresFdw.ImportForeignSchemaInput.serverOptions', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='importOptions', full_name='PostgresFdw.ImportForeignSchemaInput.importOptions', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='restrictionType', full_name='PostgresFdw.ImportForeignSchemaInput.restrictionType', index=3,
+      number=4, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='restricted', full_name='PostgresFdw.ImportForeignSchemaInput.restricted', index=4,
+      number=5, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_IMPORTFOREIGNSCHEMAINPUT_SERVEROPTIONSENTRY, _IMPORTFOREIGNSCHEMAINPUT_IMPORTOPTIONSENTRY, ],
+  enum_types=[
+    _IMPORTFOREIGNSCHEMAINPUT_RESTRICTIONTYPE,
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=427,
+  serialized_end=891,
+)
+
+
+_IMPORTFOREIGNSCHEMAOUTPUT = _descriptor.Descriptor(
+  name='ImportForeignSchemaOutput',
+  full_name='PostgresFdw.ImportForeignSchemaOutput',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='tables', full_name='PostgresFdw.ImportForeignSchemaOutput.tables', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=893,
+  serialized_end=966,
+)
+
+
 _PERFORMFOREIGNSCANINPUT_OPTIONSENTRY = _descriptor.Descriptor(
   name='OptionsEntry',
   full_name='PostgresFdw.PerformForeignScanInput.OptionsEntry',
@@ -198,8 +471,8 @@ _PERFORMFOREIGNSCANINPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=237,
-  serialized_end=426,
+  serialized_start=969,
+  serialized_end=1158,
 )
 
 
@@ -267,8 +540,8 @@ _ROW_ROWVALUE = _descriptor.Descriptor(
       name='test_oneof', full_name='PostgresFdw.Row.RowValue.test_oneof',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=483,
-  serialized_end=637,
+  serialized_start=1215,
+  serialized_end=1369,
 )
 
 _ROW_FIELDSENTRY = _descriptor.Descriptor(
@@ -304,8 +577,8 @@ _ROW_FIELDSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=639,
-  serialized_end=711,
+  serialized_start=1371,
+  serialized_end=1443,
 )
 
 _ROW = _descriptor.Descriptor(
@@ -334,8 +607,8 @@ _ROW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=429,
-  serialized_end=711,
+  serialized_start=1161,
+  serialized_end=1443,
 )
 
 
@@ -365,12 +638,22 @@ _PERFORMFOREIGNSCANOUTPUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=713,
-  serialized_end=771,
+  serialized_start=1445,
+  serialized_end=1503,
 )
 
 _COLUMNDEFINITION_OPTIONSENTRY.containing_type = _COLUMNDEFINITION
 _COLUMNDEFINITION.fields_by_name['options'].message_type = _COLUMNDEFINITION_OPTIONSENTRY
+_TABLEDEFINITION_OPTIONSENTRY.containing_type = _TABLEDEFINITION
+_TABLEDEFINITION.fields_by_name['columns'].message_type = _COLUMNDEFINITION
+_TABLEDEFINITION.fields_by_name['options'].message_type = _TABLEDEFINITION_OPTIONSENTRY
+_IMPORTFOREIGNSCHEMAINPUT_SERVEROPTIONSENTRY.containing_type = _IMPORTFOREIGNSCHEMAINPUT
+_IMPORTFOREIGNSCHEMAINPUT_IMPORTOPTIONSENTRY.containing_type = _IMPORTFOREIGNSCHEMAINPUT
+_IMPORTFOREIGNSCHEMAINPUT.fields_by_name['serverOptions'].message_type = _IMPORTFOREIGNSCHEMAINPUT_SERVEROPTIONSENTRY
+_IMPORTFOREIGNSCHEMAINPUT.fields_by_name['importOptions'].message_type = _IMPORTFOREIGNSCHEMAINPUT_IMPORTOPTIONSENTRY
+_IMPORTFOREIGNSCHEMAINPUT.fields_by_name['restrictionType'].enum_type = _IMPORTFOREIGNSCHEMAINPUT_RESTRICTIONTYPE
+_IMPORTFOREIGNSCHEMAINPUT_RESTRICTIONTYPE.containing_type = _IMPORTFOREIGNSCHEMAINPUT
+_IMPORTFOREIGNSCHEMAOUTPUT.fields_by_name['tables'].message_type = _TABLEDEFINITION
 _PERFORMFOREIGNSCANINPUT_OPTIONSENTRY.containing_type = _PERFORMFOREIGNSCANINPUT
 _PERFORMFOREIGNSCANINPUT.fields_by_name['columns'].message_type = _COLUMNDEFINITION
 _PERFORMFOREIGNSCANINPUT.fields_by_name['options'].message_type = _PERFORMFOREIGNSCANINPUT_OPTIONSENTRY
@@ -398,6 +681,9 @@ _ROW_FIELDSENTRY.containing_type = _ROW
 _ROW.fields_by_name['fields'].message_type = _ROW_FIELDSENTRY
 _PERFORMFOREIGNSCANOUTPUT.fields_by_name['rows'].message_type = _ROW
 DESCRIPTOR.message_types_by_name['ColumnDefinition'] = _COLUMNDEFINITION
+DESCRIPTOR.message_types_by_name['TableDefinition'] = _TABLEDEFINITION
+DESCRIPTOR.message_types_by_name['ImportForeignSchemaInput'] = _IMPORTFOREIGNSCHEMAINPUT
+DESCRIPTOR.message_types_by_name['ImportForeignSchemaOutput'] = _IMPORTFOREIGNSCHEMAOUTPUT
 DESCRIPTOR.message_types_by_name['PerformForeignScanInput'] = _PERFORMFOREIGNSCANINPUT
 DESCRIPTOR.message_types_by_name['Row'] = _ROW
 DESCRIPTOR.message_types_by_name['PerformForeignScanOutput'] = _PERFORMFOREIGNSCANOUTPUT
@@ -417,6 +703,51 @@ ColumnDefinition = _reflection.GeneratedProtocolMessageType('ColumnDefinition', 
   ))
 _sym_db.RegisterMessage(ColumnDefinition)
 _sym_db.RegisterMessage(ColumnDefinition.OptionsEntry)
+
+TableDefinition = _reflection.GeneratedProtocolMessageType('TableDefinition', (_message.Message,), dict(
+
+  OptionsEntry = _reflection.GeneratedProtocolMessageType('OptionsEntry', (_message.Message,), dict(
+    DESCRIPTOR = _TABLEDEFINITION_OPTIONSENTRY,
+    __module__ = 'fdw_pb2'
+    # @@protoc_insertion_point(class_scope:PostgresFdw.TableDefinition.OptionsEntry)
+    ))
+  ,
+  DESCRIPTOR = _TABLEDEFINITION,
+  __module__ = 'fdw_pb2'
+  # @@protoc_insertion_point(class_scope:PostgresFdw.TableDefinition)
+  ))
+_sym_db.RegisterMessage(TableDefinition)
+_sym_db.RegisterMessage(TableDefinition.OptionsEntry)
+
+ImportForeignSchemaInput = _reflection.GeneratedProtocolMessageType('ImportForeignSchemaInput', (_message.Message,), dict(
+
+  ServerOptionsEntry = _reflection.GeneratedProtocolMessageType('ServerOptionsEntry', (_message.Message,), dict(
+    DESCRIPTOR = _IMPORTFOREIGNSCHEMAINPUT_SERVEROPTIONSENTRY,
+    __module__ = 'fdw_pb2'
+    # @@protoc_insertion_point(class_scope:PostgresFdw.ImportForeignSchemaInput.ServerOptionsEntry)
+    ))
+  ,
+
+  ImportOptionsEntry = _reflection.GeneratedProtocolMessageType('ImportOptionsEntry', (_message.Message,), dict(
+    DESCRIPTOR = _IMPORTFOREIGNSCHEMAINPUT_IMPORTOPTIONSENTRY,
+    __module__ = 'fdw_pb2'
+    # @@protoc_insertion_point(class_scope:PostgresFdw.ImportForeignSchemaInput.ImportOptionsEntry)
+    ))
+  ,
+  DESCRIPTOR = _IMPORTFOREIGNSCHEMAINPUT,
+  __module__ = 'fdw_pb2'
+  # @@protoc_insertion_point(class_scope:PostgresFdw.ImportForeignSchemaInput)
+  ))
+_sym_db.RegisterMessage(ImportForeignSchemaInput)
+_sym_db.RegisterMessage(ImportForeignSchemaInput.ServerOptionsEntry)
+_sym_db.RegisterMessage(ImportForeignSchemaInput.ImportOptionsEntry)
+
+ImportForeignSchemaOutput = _reflection.GeneratedProtocolMessageType('ImportForeignSchemaOutput', (_message.Message,), dict(
+  DESCRIPTOR = _IMPORTFOREIGNSCHEMAOUTPUT,
+  __module__ = 'fdw_pb2'
+  # @@protoc_insertion_point(class_scope:PostgresFdw.ImportForeignSchemaOutput)
+  ))
+_sym_db.RegisterMessage(ImportForeignSchemaOutput)
 
 PerformForeignScanInput = _reflection.GeneratedProtocolMessageType('PerformForeignScanInput', (_message.Message,), dict(
 
@@ -466,6 +797,12 @@ _sym_db.RegisterMessage(PerformForeignScanOutput)
 
 _COLUMNDEFINITION_OPTIONSENTRY.has_options = True
 _COLUMNDEFINITION_OPTIONSENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
+_TABLEDEFINITION_OPTIONSENTRY.has_options = True
+_TABLEDEFINITION_OPTIONSENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
+_IMPORTFOREIGNSCHEMAINPUT_SERVEROPTIONSENTRY.has_options = True
+_IMPORTFOREIGNSCHEMAINPUT_SERVEROPTIONSENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
+_IMPORTFOREIGNSCHEMAINPUT_IMPORTOPTIONSENTRY.has_options = True
+_IMPORTFOREIGNSCHEMAINPUT_IMPORTOPTIONSENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
 _PERFORMFOREIGNSCANINPUT_OPTIONSENTRY.has_options = True
 _PERFORMFOREIGNSCANINPUT_OPTIONSENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
 _ROW_FIELDSENTRY.has_options = True
@@ -477,8 +814,8 @@ _POSTGRESFDW = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=773,
-  serialized_end=889,
+  serialized_start=1506,
+  serialized_end=1726,
   methods=[
   _descriptor.MethodDescriptor(
     name='PerformForeignScan',
@@ -487,6 +824,15 @@ _POSTGRESFDW = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_PERFORMFOREIGNSCANINPUT,
     output_type=_PERFORMFOREIGNSCANOUTPUT,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ImportForeignSchema',
+    full_name='PostgresFdw.PostgresFdw.ImportForeignSchema',
+    index=1,
+    containing_service=None,
+    input_type=_IMPORTFOREIGNSCHEMAINPUT,
+    output_type=_IMPORTFOREIGNSCHEMAOUTPUT,
     options=None,
   ),
 ])
@@ -519,6 +865,11 @@ try:
           request_serializer=PerformForeignScanInput.SerializeToString,
           response_deserializer=PerformForeignScanOutput.FromString,
           )
+      self.ImportForeignSchema = channel.unary_unary(
+          '/PostgresFdw.PostgresFdw/ImportForeignSchema',
+          request_serializer=ImportForeignSchemaInput.SerializeToString,
+          response_deserializer=ImportForeignSchemaOutput.FromString,
+          )
 
 
   class PostgresFdwServicer(object):
@@ -526,10 +877,15 @@ try:
     pass
 
     def PerformForeignScan(self, request, context):
-      """rpc GetForeignRelSize(GetForeignRelSizeInput) returns (GetForeignRelSizeOutput) {}
-      rpc GetForeignPaths(GetForeignPathsInput) returns (GetForeignPathsOutput) {}
-      rpc GetForeignPlan(GetForeignPlanInput) returns (GetForeignPlanOutput) {}
-      """
+      # missing associated documentation comment in .proto file
+      pass
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
+
+    def ImportForeignSchema(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
@@ -541,6 +897,11 @@ try:
             servicer.PerformForeignScan,
             request_deserializer=PerformForeignScanInput.FromString,
             response_serializer=PerformForeignScanOutput.SerializeToString,
+        ),
+        'ImportForeignSchema': grpc.unary_unary_rpc_method_handler(
+            servicer.ImportForeignSchema,
+            request_deserializer=ImportForeignSchemaInput.FromString,
+            response_serializer=ImportForeignSchemaOutput.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -557,10 +918,12 @@ try:
     # missing associated documentation comment in .proto file
     pass
     def PerformForeignScan(self, request, context):
-      """rpc GetForeignRelSize(GetForeignRelSizeInput) returns (GetForeignRelSizeOutput) {}
-      rpc GetForeignPaths(GetForeignPathsInput) returns (GetForeignPathsOutput) {}
-      rpc GetForeignPlan(GetForeignPlanInput) returns (GetForeignPlanOutput) {}
-      """
+      # missing associated documentation comment in .proto file
+      pass
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+    def ImportForeignSchema(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
@@ -573,11 +936,14 @@ try:
     # missing associated documentation comment in .proto file
     pass
     def PerformForeignScan(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      """rpc GetForeignRelSize(GetForeignRelSizeInput) returns (GetForeignRelSizeOutput) {}
-      rpc GetForeignPaths(GetForeignPathsInput) returns (GetForeignPathsOutput) {}
-      rpc GetForeignPlan(GetForeignPlanInput) returns (GetForeignPlanOutput) {}
-      """
+      # missing associated documentation comment in .proto file
+      pass
       raise NotImplementedError()
+    def ImportForeignSchema(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      # missing associated documentation comment in .proto file
+      pass
+      raise NotImplementedError()
+    ImportForeignSchema.future = None
 
 
   def beta_create_PostgresFdw_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
@@ -587,12 +953,15 @@ try:
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_deserializers = {
+      ('PostgresFdw.PostgresFdw', 'ImportForeignSchema'): ImportForeignSchemaInput.FromString,
       ('PostgresFdw.PostgresFdw', 'PerformForeignScan'): PerformForeignScanInput.FromString,
     }
     response_serializers = {
+      ('PostgresFdw.PostgresFdw', 'ImportForeignSchema'): ImportForeignSchemaOutput.SerializeToString,
       ('PostgresFdw.PostgresFdw', 'PerformForeignScan'): PerformForeignScanOutput.SerializeToString,
     }
     method_implementations = {
+      ('PostgresFdw.PostgresFdw', 'ImportForeignSchema'): face_utilities.unary_unary_inline(servicer.ImportForeignSchema),
       ('PostgresFdw.PostgresFdw', 'PerformForeignScan'): face_utilities.unary_stream_inline(servicer.PerformForeignScan),
     }
     server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
@@ -606,12 +975,15 @@ try:
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_serializers = {
+      ('PostgresFdw.PostgresFdw', 'ImportForeignSchema'): ImportForeignSchemaInput.SerializeToString,
       ('PostgresFdw.PostgresFdw', 'PerformForeignScan'): PerformForeignScanInput.SerializeToString,
     }
     response_deserializers = {
+      ('PostgresFdw.PostgresFdw', 'ImportForeignSchema'): ImportForeignSchemaOutput.FromString,
       ('PostgresFdw.PostgresFdw', 'PerformForeignScan'): PerformForeignScanOutput.FromString,
     }
     cardinalities = {
+      'ImportForeignSchema': cardinality.Cardinality.UNARY_UNARY,
       'PerformForeignScan': cardinality.Cardinality.UNARY_STREAM,
     }
     stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)

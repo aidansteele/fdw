@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
@@ -12,6 +13,8 @@ namespace FdwSharp
         {
             public string Address;
             public int Port;
+            public ITable Table;
+            public ITableImporter TableImporter;
 
             public Options()
             {
@@ -22,9 +25,9 @@ namespace FdwSharp
         
         private readonly ServerImpl _serverImpl;
         
-        public FdwSharpServer(ITable table, Options options)
+        public FdwSharpServer(Options options)
         {
-            _serverImpl = new ServerImpl(table, options);
+            _serverImpl = new ServerImpl(options);
         }
 
         public void Start()
@@ -40,11 +43,13 @@ namespace FdwSharp
         private class ServerImpl: PostgresFdw.PostgresFdw.PostgresFdwBase
         {
             private readonly ITable _table;
+            private readonly ITableImporter _importer;
             internal readonly Server Server;
 
-            internal ServerImpl(ITable table, Options options)
+            internal ServerImpl(Options options)
             {
-                _table = table;
+                _table = options.Table;
+                _importer = options.TableImporter;
 
                 Server = new Server
                 {
@@ -96,6 +101,43 @@ namespace FdwSharp
             
                 var output = new PerformForeignScanOutput { Rows = { protoRows }  };
                 await responseStream.WriteAsync(output);
+            }
+
+            public override async Task<ImportForeignSchemaOutput> ImportForeignSchema(ImportForeignSchemaInput request, ServerCallContext context)
+            {
+                var restriction = RestrictionToRestriction(request);
+
+                var tables = await _importer.ImportTables(request.Schema, request.ServerOptions, request.ImportOptions, restriction, request.Restricted);
+                                
+                var protoTables = tables.Select(table =>
+                {
+                    var options = table.Options.ToDictionary(
+                        kvp => $"\"{kvp.Key}\"", 
+                        kvp => kvp.Value
+                    );
+                    options.Add("\"fdwsharp.table\"", table.Name);
+
+                    return new PostgresFdw.TableDefinition
+                    {
+                        Name = table.Name,
+                        Columns = {table.Columns},
+                        Options = {options},
+                    };
+                });
+
+                return new ImportForeignSchemaOutput { Tables = { protoTables } };
+            }
+
+            private TableImportRestriction RestrictionToRestriction(ImportForeignSchemaInput request)
+            {
+                switch (request.RestrictionType)
+                {
+                    case ImportForeignSchemaInput.Types.RestrictionType.None: return TableImportRestriction.None;
+                    case ImportForeignSchemaInput.Types.RestrictionType.Limit: return TableImportRestriction.Limit;
+                    case ImportForeignSchemaInput.Types.RestrictionType.Except: return TableImportRestriction.Except;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
         }
     }

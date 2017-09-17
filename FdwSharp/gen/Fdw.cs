@@ -27,25 +27,47 @@ namespace PostgresFdw {
             "eXBlTmFtZRgEIAEoCRIUCgxiYXNlVHlwZU5hbWUYBSABKAkSOwoHb3B0aW9u",
             "cxgGIAMoCzIqLlBvc3RncmVzRmR3LkNvbHVtbkRlZmluaXRpb24uT3B0aW9u",
             "c0VudHJ5Gi4KDE9wdGlvbnNFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUY",
-            "AiABKAk6AjgBIr0BChdQZXJmb3JtRm9yZWlnblNjYW5JbnB1dBIuCgdjb2x1",
-            "bW5zGAEgAygLMh0uUG9zdGdyZXNGZHcuQ29sdW1uRGVmaW5pdGlvbhJCCgdv",
-            "cHRpb25zGAIgAygLMjEuUG9zdGdyZXNGZHcuUGVyZm9ybUZvcmVpZ25TY2Fu",
-            "SW5wdXQuT3B0aW9uc0VudHJ5Gi4KDE9wdGlvbnNFbnRyeRILCgNrZXkYASAB",
-            "KAkSDQoFdmFsdWUYAiABKAk6AjgBIpoCCgNSb3cSLAoGZmllbGRzGAEgAygL",
-            "MhwuUG9zdGdyZXNGZHcuUm93LkZpZWxkc0VudHJ5GpoBCghSb3dWYWx1ZRIV",
-            "CgtzdHJpbmdWYWx1ZRgBIAEoCUgAEhQKCmZsb2F0VmFsdWUYAiABKAJIABIV",
-            "Cgtkb3VibGVWYWx1ZRgDIAEoAUgAEhIKCGludFZhbHVlGAQgASgFSAASEwoJ",
-            "bG9uZ1ZhbHVlGAUgASgDSAASEwoJYm9vbFZhbHVlGAYgASgISABCDAoKdGVz",
-            "dF9vbmVvZhpICgtGaWVsZHNFbnRyeRILCgNrZXkYASABKAkSKAoFdmFsdWUY",
-            "AiABKAsyGS5Qb3N0Z3Jlc0Zkdy5Sb3cuUm93VmFsdWU6AjgBIjoKGFBlcmZv",
-            "cm1Gb3JlaWduU2Nhbk91dHB1dBIeCgRyb3dzGAEgAygLMhAuUG9zdGdyZXNG",
-            "ZHcuUm93MnQKC1Bvc3RncmVzRmR3EmUKElBlcmZvcm1Gb3JlaWduU2NhbhIk",
-            "LlBvc3RncmVzRmR3LlBlcmZvcm1Gb3JlaWduU2NhbklucHV0GiUuUG9zdGdy",
-            "ZXNGZHcuUGVyZm9ybUZvcmVpZ25TY2FuT3V0cHV0IgAwAWIGcHJvdG8z"));
+            "AiABKAk6AjgBIrsBCg9UYWJsZURlZmluaXRpb24SDAoEbmFtZRgBIAEoCRIu",
+            "Cgdjb2x1bW5zGAIgAygLMh0uUG9zdGdyZXNGZHcuQ29sdW1uRGVmaW5pdGlv",
+            "bhI6CgdvcHRpb25zGAMgAygLMikuUG9zdGdyZXNGZHcuVGFibGVEZWZpbml0",
+            "aW9uLk9wdGlvbnNFbnRyeRouCgxPcHRpb25zRW50cnkSCwoDa2V5GAEgASgJ",
+            "Eg0KBXZhbHVlGAIgASgJOgI4ASLQAwoYSW1wb3J0Rm9yZWlnblNjaGVtYUlu",
+            "cHV0Eg4KBnNjaGVtYRgBIAEoCRJPCg1zZXJ2ZXJPcHRpb25zGAIgAygLMjgu",
+            "UG9zdGdyZXNGZHcuSW1wb3J0Rm9yZWlnblNjaGVtYUlucHV0LlNlcnZlck9w",
+            "dGlvbnNFbnRyeRJPCg1pbXBvcnRPcHRpb25zGAMgAygLMjguUG9zdGdyZXNG",
+            "ZHcuSW1wb3J0Rm9yZWlnblNjaGVtYUlucHV0LkltcG9ydE9wdGlvbnNFbnRy",
+            "eRJOCg9yZXN0cmljdGlvblR5cGUYBCABKA4yNS5Qb3N0Z3Jlc0Zkdy5JbXBv",
+            "cnRGb3JlaWduU2NoZW1hSW5wdXQuUmVzdHJpY3Rpb25UeXBlEhIKCnJlc3Ry",
+            "aWN0ZWQYBSADKAkaNAoSU2VydmVyT3B0aW9uc0VudHJ5EgsKA2tleRgBIAEo",
+            "CRINCgV2YWx1ZRgCIAEoCToCOAEaNAoSSW1wb3J0T3B0aW9uc0VudHJ5EgsK",
+            "A2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAEiMgoPUmVzdHJpY3Rpb25U",
+            "eXBlEggKBE5PTkUQABIJCgVMSU1JVBABEgoKBkVYQ0VQVBACIkkKGUltcG9y",
+            "dEZvcmVpZ25TY2hlbWFPdXRwdXQSLAoGdGFibGVzGAEgAygLMhwuUG9zdGdy",
+            "ZXNGZHcuVGFibGVEZWZpbml0aW9uIr0BChdQZXJmb3JtRm9yZWlnblNjYW5J",
+            "bnB1dBIuCgdjb2x1bW5zGAEgAygLMh0uUG9zdGdyZXNGZHcuQ29sdW1uRGVm",
+            "aW5pdGlvbhJCCgdvcHRpb25zGAIgAygLMjEuUG9zdGdyZXNGZHcuUGVyZm9y",
+            "bUZvcmVpZ25TY2FuSW5wdXQuT3B0aW9uc0VudHJ5Gi4KDE9wdGlvbnNFbnRy",
+            "eRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKAk6AjgBIpoCCgNSb3cSLAoG",
+            "ZmllbGRzGAEgAygLMhwuUG9zdGdyZXNGZHcuUm93LkZpZWxkc0VudHJ5GpoB",
+            "CghSb3dWYWx1ZRIVCgtzdHJpbmdWYWx1ZRgBIAEoCUgAEhQKCmZsb2F0VmFs",
+            "dWUYAiABKAJIABIVCgtkb3VibGVWYWx1ZRgDIAEoAUgAEhIKCGludFZhbHVl",
+            "GAQgASgFSAASEwoJbG9uZ1ZhbHVlGAUgASgDSAASEwoJYm9vbFZhbHVlGAYg",
+            "ASgISABCDAoKdGVzdF9vbmVvZhpICgtGaWVsZHNFbnRyeRILCgNrZXkYASAB",
+            "KAkSKAoFdmFsdWUYAiABKAsyGS5Qb3N0Z3Jlc0Zkdy5Sb3cuUm93VmFsdWU6",
+            "AjgBIjoKGFBlcmZvcm1Gb3JlaWduU2Nhbk91dHB1dBIeCgRyb3dzGAEgAygL",
+            "MhAuUG9zdGdyZXNGZHcuUm93MtwBCgtQb3N0Z3Jlc0ZkdxJlChJQZXJmb3Jt",
+            "Rm9yZWlnblNjYW4SJC5Qb3N0Z3Jlc0Zkdy5QZXJmb3JtRm9yZWlnblNjYW5J",
+            "bnB1dBolLlBvc3RncmVzRmR3LlBlcmZvcm1Gb3JlaWduU2Nhbk91dHB1dCIA",
+            "MAESZgoTSW1wb3J0Rm9yZWlnblNjaGVtYRIlLlBvc3RncmVzRmR3LkltcG9y",
+            "dEZvcmVpZ25TY2hlbWFJbnB1dBomLlBvc3RncmVzRmR3LkltcG9ydEZvcmVp",
+            "Z25TY2hlbWFPdXRwdXQiAGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::PostgresFdw.ColumnDefinition), global::PostgresFdw.ColumnDefinition.Parser, new[]{ "Name", "Oid", "Mod", "TypeName", "BaseTypeName", "Options" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+            new pbr::GeneratedClrTypeInfo(typeof(global::PostgresFdw.TableDefinition), global::PostgresFdw.TableDefinition.Parser, new[]{ "Name", "Columns", "Options" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+            new pbr::GeneratedClrTypeInfo(typeof(global::PostgresFdw.ImportForeignSchemaInput), global::PostgresFdw.ImportForeignSchemaInput.Parser, new[]{ "Schema", "ServerOptions", "ImportOptions", "RestrictionType", "Restricted" }, null, new[]{ typeof(global::PostgresFdw.ImportForeignSchemaInput.Types.RestrictionType) }, new pbr::GeneratedClrTypeInfo[] { null, null, }),
+            new pbr::GeneratedClrTypeInfo(typeof(global::PostgresFdw.ImportForeignSchemaOutput), global::PostgresFdw.ImportForeignSchemaOutput.Parser, new[]{ "Tables" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::PostgresFdw.PerformForeignScanInput), global::PostgresFdw.PerformForeignScanInput.Parser, new[]{ "Columns", "Options" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::PostgresFdw.Row), global::PostgresFdw.Row.Parser, new[]{ "Fields" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::PostgresFdw.Row.Types.RowValue), global::PostgresFdw.Row.Types.RowValue.Parser, new[]{ "StringValue", "FloatValue", "DoubleValue", "IntValue", "LongValue", "BoolValue" }, new[]{ "TestOneof" }, null, null),
             null, }),
@@ -317,6 +339,490 @@ namespace PostgresFdw {
 
   }
 
+  public sealed partial class TableDefinition : pb::IMessage<TableDefinition> {
+    private static readonly pb::MessageParser<TableDefinition> _parser = new pb::MessageParser<TableDefinition>(() => new TableDefinition());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<TableDefinition> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::PostgresFdw.FdwReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TableDefinition() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TableDefinition(TableDefinition other) : this() {
+      name_ = other.name_;
+      columns_ = other.columns_.Clone();
+      options_ = other.options_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public TableDefinition Clone() {
+      return new TableDefinition(this);
+    }
+
+    /// <summary>Field number for the "name" field.</summary>
+    public const int NameFieldNumber = 1;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "columns" field.</summary>
+    public const int ColumnsFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::PostgresFdw.ColumnDefinition> _repeated_columns_codec
+        = pb::FieldCodec.ForMessage(18, global::PostgresFdw.ColumnDefinition.Parser);
+    private readonly pbc::RepeatedField<global::PostgresFdw.ColumnDefinition> columns_ = new pbc::RepeatedField<global::PostgresFdw.ColumnDefinition>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::PostgresFdw.ColumnDefinition> Columns {
+      get { return columns_; }
+    }
+
+    /// <summary>Field number for the "options" field.</summary>
+    public const int OptionsFieldNumber = 3;
+    private static readonly pbc::MapField<string, string>.Codec _map_options_codec
+        = new pbc::MapField<string, string>.Codec(pb::FieldCodec.ForString(10), pb::FieldCodec.ForString(18), 26);
+    private readonly pbc::MapField<string, string> options_ = new pbc::MapField<string, string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::MapField<string, string> Options {
+      get { return options_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as TableDefinition);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(TableDefinition other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Name != other.Name) return false;
+      if(!columns_.Equals(other.columns_)) return false;
+      if (!Options.Equals(other.Options)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      hash ^= columns_.GetHashCode();
+      hash ^= Options.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Name.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Name);
+      }
+      columns_.WriteTo(output, _repeated_columns_codec);
+      options_.WriteTo(output, _map_options_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      size += columns_.CalculateSize(_repeated_columns_codec);
+      size += options_.CalculateSize(_map_options_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(TableDefinition other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      columns_.Add(other.columns_);
+      options_.Add(other.options_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            Name = input.ReadString();
+            break;
+          }
+          case 18: {
+            columns_.AddEntriesFrom(input, _repeated_columns_codec);
+            break;
+          }
+          case 26: {
+            options_.AddEntriesFrom(input, _map_options_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class ImportForeignSchemaInput : pb::IMessage<ImportForeignSchemaInput> {
+    private static readonly pb::MessageParser<ImportForeignSchemaInput> _parser = new pb::MessageParser<ImportForeignSchemaInput>(() => new ImportForeignSchemaInput());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ImportForeignSchemaInput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::PostgresFdw.FdwReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ImportForeignSchemaInput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ImportForeignSchemaInput(ImportForeignSchemaInput other) : this() {
+      schema_ = other.schema_;
+      serverOptions_ = other.serverOptions_.Clone();
+      importOptions_ = other.importOptions_.Clone();
+      restrictionType_ = other.restrictionType_;
+      restricted_ = other.restricted_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ImportForeignSchemaInput Clone() {
+      return new ImportForeignSchemaInput(this);
+    }
+
+    /// <summary>Field number for the "schema" field.</summary>
+    public const int SchemaFieldNumber = 1;
+    private string schema_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Schema {
+      get { return schema_; }
+      set {
+        schema_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "serverOptions" field.</summary>
+    public const int ServerOptionsFieldNumber = 2;
+    private static readonly pbc::MapField<string, string>.Codec _map_serverOptions_codec
+        = new pbc::MapField<string, string>.Codec(pb::FieldCodec.ForString(10), pb::FieldCodec.ForString(18), 18);
+    private readonly pbc::MapField<string, string> serverOptions_ = new pbc::MapField<string, string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::MapField<string, string> ServerOptions {
+      get { return serverOptions_; }
+    }
+
+    /// <summary>Field number for the "importOptions" field.</summary>
+    public const int ImportOptionsFieldNumber = 3;
+    private static readonly pbc::MapField<string, string>.Codec _map_importOptions_codec
+        = new pbc::MapField<string, string>.Codec(pb::FieldCodec.ForString(10), pb::FieldCodec.ForString(18), 26);
+    private readonly pbc::MapField<string, string> importOptions_ = new pbc::MapField<string, string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::MapField<string, string> ImportOptions {
+      get { return importOptions_; }
+    }
+
+    /// <summary>Field number for the "restrictionType" field.</summary>
+    public const int RestrictionTypeFieldNumber = 4;
+    private global::PostgresFdw.ImportForeignSchemaInput.Types.RestrictionType restrictionType_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::PostgresFdw.ImportForeignSchemaInput.Types.RestrictionType RestrictionType {
+      get { return restrictionType_; }
+      set {
+        restrictionType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "restricted" field.</summary>
+    public const int RestrictedFieldNumber = 5;
+    private static readonly pb::FieldCodec<string> _repeated_restricted_codec
+        = pb::FieldCodec.ForString(42);
+    private readonly pbc::RepeatedField<string> restricted_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<string> Restricted {
+      get { return restricted_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ImportForeignSchemaInput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ImportForeignSchemaInput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Schema != other.Schema) return false;
+      if (!ServerOptions.Equals(other.ServerOptions)) return false;
+      if (!ImportOptions.Equals(other.ImportOptions)) return false;
+      if (RestrictionType != other.RestrictionType) return false;
+      if(!restricted_.Equals(other.restricted_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Schema.Length != 0) hash ^= Schema.GetHashCode();
+      hash ^= ServerOptions.GetHashCode();
+      hash ^= ImportOptions.GetHashCode();
+      if (RestrictionType != 0) hash ^= RestrictionType.GetHashCode();
+      hash ^= restricted_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Schema.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Schema);
+      }
+      serverOptions_.WriteTo(output, _map_serverOptions_codec);
+      importOptions_.WriteTo(output, _map_importOptions_codec);
+      if (RestrictionType != 0) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) RestrictionType);
+      }
+      restricted_.WriteTo(output, _repeated_restricted_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Schema.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Schema);
+      }
+      size += serverOptions_.CalculateSize(_map_serverOptions_codec);
+      size += importOptions_.CalculateSize(_map_importOptions_codec);
+      if (RestrictionType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) RestrictionType);
+      }
+      size += restricted_.CalculateSize(_repeated_restricted_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ImportForeignSchemaInput other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Schema.Length != 0) {
+        Schema = other.Schema;
+      }
+      serverOptions_.Add(other.serverOptions_);
+      importOptions_.Add(other.importOptions_);
+      if (other.RestrictionType != 0) {
+        RestrictionType = other.RestrictionType;
+      }
+      restricted_.Add(other.restricted_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            Schema = input.ReadString();
+            break;
+          }
+          case 18: {
+            serverOptions_.AddEntriesFrom(input, _map_serverOptions_codec);
+            break;
+          }
+          case 26: {
+            importOptions_.AddEntriesFrom(input, _map_importOptions_codec);
+            break;
+          }
+          case 32: {
+            restrictionType_ = (global::PostgresFdw.ImportForeignSchemaInput.Types.RestrictionType) input.ReadEnum();
+            break;
+          }
+          case 42: {
+            restricted_.AddEntriesFrom(input, _repeated_restricted_codec);
+            break;
+          }
+        }
+      }
+    }
+
+    #region Nested types
+    /// <summary>Container for nested types declared in the ImportForeignSchemaInput message type.</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static partial class Types {
+      public enum RestrictionType {
+        [pbr::OriginalName("NONE")] None = 0,
+        [pbr::OriginalName("LIMIT")] Limit = 1,
+        [pbr::OriginalName("EXCEPT")] Except = 2,
+      }
+
+    }
+    #endregion
+
+  }
+
+  public sealed partial class ImportForeignSchemaOutput : pb::IMessage<ImportForeignSchemaOutput> {
+    private static readonly pb::MessageParser<ImportForeignSchemaOutput> _parser = new pb::MessageParser<ImportForeignSchemaOutput>(() => new ImportForeignSchemaOutput());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ImportForeignSchemaOutput> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::PostgresFdw.FdwReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ImportForeignSchemaOutput() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ImportForeignSchemaOutput(ImportForeignSchemaOutput other) : this() {
+      tables_ = other.tables_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ImportForeignSchemaOutput Clone() {
+      return new ImportForeignSchemaOutput(this);
+    }
+
+    /// <summary>Field number for the "tables" field.</summary>
+    public const int TablesFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::PostgresFdw.TableDefinition> _repeated_tables_codec
+        = pb::FieldCodec.ForMessage(10, global::PostgresFdw.TableDefinition.Parser);
+    private readonly pbc::RepeatedField<global::PostgresFdw.TableDefinition> tables_ = new pbc::RepeatedField<global::PostgresFdw.TableDefinition>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::PostgresFdw.TableDefinition> Tables {
+      get { return tables_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ImportForeignSchemaOutput);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ImportForeignSchemaOutput other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!tables_.Equals(other.tables_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= tables_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      tables_.WriteTo(output, _repeated_tables_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += tables_.CalculateSize(_repeated_tables_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ImportForeignSchemaOutput other) {
+      if (other == null) {
+        return;
+      }
+      tables_.Add(other.tables_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            tables_.AddEntriesFrom(input, _repeated_tables_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class PerformForeignScanInput : pb::IMessage<PerformForeignScanInput> {
     private static readonly pb::MessageParser<PerformForeignScanInput> _parser = new pb::MessageParser<PerformForeignScanInput>(() => new PerformForeignScanInput());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -324,7 +830,7 @@ namespace PostgresFdw {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::PostgresFdw.FdwReflection.Descriptor.MessageTypes[1]; }
+      get { return global::PostgresFdw.FdwReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -453,7 +959,7 @@ namespace PostgresFdw {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::PostgresFdw.FdwReflection.Descriptor.MessageTypes[2]; }
+      get { return global::PostgresFdw.FdwReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -869,7 +1375,7 @@ namespace PostgresFdw {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::PostgresFdw.FdwReflection.Descriptor.MessageTypes[3]; }
+      get { return global::PostgresFdw.FdwReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

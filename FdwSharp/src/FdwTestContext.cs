@@ -8,27 +8,33 @@ using System.Threading;
 
 namespace FdwSharp
 {
-    public class TestContext
+    public class FdwTestContext
     {
-        private static readonly ConcurrentDictionary<string, ExecutionContext> ExecutionContextMap = new ConcurrentDictionary<string, ExecutionContext>();        
-        private static DictionaryStack<string, ITable> Tables = new DictionaryStack<string, ITable>();
+        private readonly ConcurrentDictionary<string, ExecutionContext> _executionContextMap;        
+        private readonly DictionaryStack<string, ITable> _tables;
 
-        public static IDisposable PushTables(IDictionary<string, ITable> tables)
+        public FdwTestContext()
         {
-            return Tables.Push(tables);
+            _executionContextMap = new ConcurrentDictionary<string, ExecutionContext>();
+            _tables = new DictionaryStack<string, ITable>();
+        }
+
+        public IDisposable PushTables(IDictionary<string, ITable> tables)
+        {
+            return _tables.Push(tables);
         }
         
-        public static IDisposable PushTable(string name, ITable table)
+        public IDisposable PushTable(string name, ITable table)
         {
             var dict = new Dictionary<string, ITable> {{name, table}};
-            return Tables.Push(dict);
+            return _tables.Push(dict);
         }
         
-        public static IDisposable WrapConnection(IDbConnection connection)
+        public IDisposable WrapConnection(IDbConnection connection)
         {
             var rnd = new Random();
             var contextName = rnd.Next(1, int.MaxValue).ToString();
-            ExecutionContextMap[contextName] = ExecutionContext.Capture();
+            _executionContextMap[contextName] = ExecutionContext.Capture();
 
             using (var cmd = connection.CreateCommand())
             {
@@ -40,25 +46,32 @@ namespace FdwSharp
             return Disposable.Create(() =>
             {
                 ExecutionContext unused;
-                ExecutionContextMap.TryRemove(contextName, out unused);
+                _executionContextMap.TryRemove(contextName, out unused);
             });
         }
 
-        public static ITable GetTable()
+        public ITable GetTable()
         {
-            return new ContextualTable();
+            return new ContextualTable(this);
         }
 
         private class ContextualTable : ITable
         {
+            private readonly FdwTestContext _context;
+            
+            public ContextualTable(FdwTestContext context)
+            {
+                _context = context;
+            }
+
             public IEnumerable<IDictionary<string, object>> ScanTable(IReadOnlyList<Column> columns, IReadOnlyDictionary<string, string> options)
             {
                 ITable table = null;
 
                 var appName = options["grpc_fdw.application_name"];
                 var tableName = options["fdwsharp.table"];
-                var context = ExecutionContextMap[appName];
-                ExecutionContext.Run(context, state => table = Tables.Get(tableName), null);
+                var context = _context._executionContextMap[appName];
+                ExecutionContext.Run(context, state => table = _context._tables.Get(tableName), null);
                 return table.ScanTable(columns, options);
             }   
         }

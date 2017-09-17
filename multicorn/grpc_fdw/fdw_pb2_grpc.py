@@ -19,6 +19,11 @@ class PostgresFdwStub(object):
         request_serializer=fdw__pb2.PerformForeignScanInput.SerializeToString,
         response_deserializer=fdw__pb2.PerformForeignScanOutput.FromString,
         )
+    self.ImportForeignSchema = channel.unary_unary(
+        '/PostgresFdw.PostgresFdw/ImportForeignSchema',
+        request_serializer=fdw__pb2.ImportForeignSchemaInput.SerializeToString,
+        response_deserializer=fdw__pb2.ImportForeignSchemaOutput.FromString,
+        )
 
 
 class PostgresFdwServicer(object):
@@ -26,10 +31,15 @@ class PostgresFdwServicer(object):
   pass
 
   def PerformForeignScan(self, request, context):
-    """rpc GetForeignRelSize(GetForeignRelSizeInput) returns (GetForeignRelSizeOutput) {}
-    rpc GetForeignPaths(GetForeignPathsInput) returns (GetForeignPathsOutput) {}
-    rpc GetForeignPlan(GetForeignPlanInput) returns (GetForeignPlanOutput) {}
-    """
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def ImportForeignSchema(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -41,6 +51,11 @@ def add_PostgresFdwServicer_to_server(servicer, server):
           servicer.PerformForeignScan,
           request_deserializer=fdw__pb2.PerformForeignScanInput.FromString,
           response_serializer=fdw__pb2.PerformForeignScanOutput.SerializeToString,
+      ),
+      'ImportForeignSchema': grpc.unary_unary_rpc_method_handler(
+          servicer.ImportForeignSchema,
+          request_deserializer=fdw__pb2.ImportForeignSchemaInput.FromString,
+          response_serializer=fdw__pb2.ImportForeignSchemaOutput.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

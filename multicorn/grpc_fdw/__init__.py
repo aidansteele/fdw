@@ -1,11 +1,11 @@
-from multicorn import ForeignDataWrapper
+import multicorn
 from multicorn.utils import log_to_postgres
 import grpc
 import fdw_pb2
 import fdw_pb2_grpc
 from cffi import FFI
 
-class MyForeignDataWrapper(ForeignDataWrapper):
+class MyForeignDataWrapper(multicorn.ForeignDataWrapper):
 
     def __init__(self, options, columns):
         super(MyForeignDataWrapper, self).__init__(options, columns)
@@ -20,6 +20,34 @@ class MyForeignDataWrapper(ForeignDataWrapper):
         ffi = FFI()
         ffi.cdef("extern const char *GetConfigOption(const char *name, bool missing_ok, bool restrict_superuser);")
         self.C = ffi.dlopen(None)
+
+    @classmethod
+    def import_schema(self, schema, srv_options, options, restriction_type, restricts):
+        addr = srv_options["grpc_fdw.address"]
+        channel = grpc.insecure_channel(addr)
+        stub = fdw_pb2_grpc.PostgresFdwStub(channel)
+        
+        inp = fdw_pb2.ImportForeignSchemaInput(
+            schema=schema, 
+            serverOptions=srv_options,
+            importOptions=options,
+            restrictionType=fdw_pb2.ImportForeignSchemaInput.NONE, # FIXME
+            restricted=restricts
+        )
+
+        outp = stub.ImportForeignSchema(inp)
+        return [multicorn.TableDefinition(
+            table_name=t.name,
+            columns=[multicorn.ColumnDefinition(
+                column_name=c.name,
+                type_oid=c.oid,
+                typmod=c.mod,
+                type_name=c.typeName,
+                base_type_name=c.baseTypeName,
+                options=c.options
+            ) for c in t.columns],
+            options=t.options,
+        ) for t in outp.tables]
 
     def appName(self):
         ret = self.C.GetConfigOption("application_name", True, True)
