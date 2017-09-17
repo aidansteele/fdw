@@ -5,7 +5,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
     CREATE EXTENSION multicorn;
 
     CREATE SERVER example foreign data wrapper multicorn options (
-        "wrapper" 'grpc_fdw.MyForeignDataWrapper',
+        "wrapper" 'grpc_fdw.GrpcForeignDataWrapper',
         "grpc_fdw.address" 'docker.for.mac.localhost:50051'
     );
 

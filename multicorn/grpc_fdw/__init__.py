@@ -5,10 +5,10 @@ import fdw_pb2
 import fdw_pb2_grpc
 from cffi import FFI
 
-class MyForeignDataWrapper(multicorn.ForeignDataWrapper):
+class GrpcForeignDataWrapper(multicorn.ForeignDataWrapper):
 
     def __init__(self, options, columns):
-        super(MyForeignDataWrapper, self).__init__(options, columns)
+        super(GrpcForeignDataWrapper, self).__init__(options, columns)
         log_to_postgres("creating")        
         
         addr = options["grpc_fdw.address"]

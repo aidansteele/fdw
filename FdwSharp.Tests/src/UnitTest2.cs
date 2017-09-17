@@ -31,7 +31,6 @@ namespace FdwSharp.Tests
 
             var tables = new Dictionary<string, ITable>
             {
-                {"Purchases", new PurchasesTable()},
                 {"Products", productsTable}
             };
             
